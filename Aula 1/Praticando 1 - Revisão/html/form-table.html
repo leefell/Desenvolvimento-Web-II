@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela</title>
+    <link rel="stylesheet" href="../css/form-table.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html" target="_blank">Ínicio</a>
+            <a href="busca.html" target="_blank">Busca</a>
+            <a href="form-table.html" target="_blank">Formulário/Tabela</a>
+            <a href="postagem.html" target="_blank">Postagem c/ imagem</a>
+        </nav>
+    </header>
+
+    <h1 class="titulo">Formulário de cadastro e Tabela com Dados</h1>
+
+    <div class="container">
+        <form id="cadastroForm">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" required>
+
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" placeholder="(99)99999-9999" required>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="seu@email.aqui" required>
+
+            <label for="estado">Estado de residência</label>
+            <select id="estado">
+                <option value="">[Selecione]</option>
+                <option value="São Paulo">São Paulo</option>
+                <option value="Santa Catarina">Santa Catarina</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+            </select>
+
+            <button type="submit" class="btn-green">Enviar</button>
+            <button type="reset" class="btn-yellow">Limpar</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaCorpo">
+                <tr>
+                    <td>Lucas Pereira</td>
+                    <td>(21) 99876-5432</td>
+                    <td>lucas.pereira@example.com</td>
+                    <td>Rio de Janeiro</td>
+                </tr>
+                <tr>
+                    <td>Maria Oliveira</td>
+                    <td>(31) 98765-4321</td>
+                    <td>maria.oliveira@example.com</td>
+                    <td>Minas Gerais</td>
+                </tr>
+                <tr>
+                    <td>João Santos</td>
+                    <td>(41) 97654-3210</td>
+                    <td>joao.santos@example.com</td>
+                    <td>Paraná</td>
+                </tr>
+                <tr>
+                    <td>Ana Costa</td>
+                    <td>(51) 96543-2109</td>
+                    <td>ana.costa@example.com</td>
+                    <td>Rio Grande do Sul</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
