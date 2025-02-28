@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body class="container d-flex justify-content-center align-items-center">
+    <div class="col-6">
+        <h1 class="my-3 text-center">Formulário</h1>
+        <hr class="mb-4">
+
+        <form class="row g-2" action="destino.php" method="post">
+            <div class="mb-3">
+                <label for="titulo">Título da página:</label>
+                <input type="text" class="form-control" id="titulo" name="titulo">
+            </div>
+
+            <div class="mb-3">
+                <label for="corpo">Corpo:</label>
+                <textarea class="form-control" id="corpo" name="corpo" rows="3.5"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="corTexto">Cor do texto:</label>
+                <input type="color" class="form-control" id="corTexto" name="corTexto">
+            </div>
+
+            <div class="mb-3">
+                <label for="urlImagem">URL de uma imagem:</label>
+                <input type="url" class="form-control" id="urlImagem" name="urlImagem">
+            </div>
+
+            <div class="mb-3">
+                <label for="urlLink">URL de um link:</label>
+                <input type="url" class="form-control" id="urlLink" name="urlLink">
+            </div>
+
+            <div class="mb-3">
+                <label for="bgColor">Cor de fundo da página:</label>
+                <input type="color" class="form-control" id="bgColor" name="bgColor">
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="reset" class="btn btn-warning">Limpar</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
