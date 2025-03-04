@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario checkbox</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-3">Formulário</h1>
+        <hr>
+        <form action="destino.php" method="post">
+            <div class="form-group">
+                <label>Escolha seus interesses:</label><br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="esportes" id="esportes">
+                            <label class="form-check-label" for="esportes">Esportes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="futebol" id="futebol">
+                            <label class="form-check-label" for="futebol">Futebol</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="basquete" id="basquete">
+                            <label class="form-check-label" for="basquete">Basquete</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="volei" id="volei">
+                            <label class="form-check-label" for="volei">Vôlei</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="natacao" id="natacao">
+                            <label class="form-check-label" for="natacao">Natação</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="ciclismo" id="ciclismo">
+                            <label class="form-check-label" for="ciclismo">Ciclismo</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="corrida" id="corrida">
+                            <label class="form-check-label" for="corrida">Corrida</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="tenis" id="tenis">
+                            <label class="form-check-label" for="tenis">Tênis</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="musica" id="musica">
+                            <label class="form-check-label" for="musica">Música</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="cinema" id="cinema">
+                            <label class="form-check-label" for="cinema">Cinema</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="teatro" id="teatro">
+                            <label class="form-check-label" for="teatro">Teatro</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="leitura" id="leitura">
+                            <label class="form-check-label" for="leitura">Leitura</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="viagem" id="viagem">
+                            <label class="form-check-label" for="viagem">Viagem</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="gastronomia" id="gastronomia">
+                            <label class="form-check-label" for="gastronomia">Gastronomia</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="fotografia" id="fotografia">
+                            <label class="form-check-label" for="fotografia">Fotografia</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="jogos" id="jogos">
+                            <label class="form-check-label" for="jogos">Jogos</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="arte" id="arte">
+                            <label class="form-check-label" for="arte">Arte</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="moda" id="moda">
+                            <label class="form-check-label" for="moda">Moda</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="tecnologia" id="tecnologia">
+                            <label class="form-check-label" for="tecnologia">Tecnologia</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="natureza" id="natureza">
+                            <label class="form-check-label" for="natureza">Natureza</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="culinaria" id="culinaria">
+                            <label class="form-check-label" for="culinaria">Culinária</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="pintura" id="pintura">
+                            <label class="form-check-label" for="pintura">Pintura</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="danca" id="danca">
+                            <label class="form-check-label" for="danca">Dança</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="gostos[]" value="jardinagem" id="jardinagem">
+                            <label class="form-check-label" for="jardinagem">Jardinagem</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="reset" class="btn btn-warning">Limpar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
