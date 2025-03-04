@@ -1,17 +1,18 @@
 <?php
-$animais = filter_input(INPUT_GET, 'animais', FILTER_SANITIZE_STRING);
-$animal = filter_input(INPUT_GET, 'animal', FILTER_SANITIZE_STRING);
+$animal = filter_input(INPUT_GET, "animal", FILTER_SANITIZE_SPECIAL_CHARS);
+$ultimo = filter_input(INPUT_GET, "ultimo", FILTER_SANITIZE_SPECIAL_CHARS);
+$ultimo_clicado = filter_input(INPUT_GET, "ultimo_clicado", FILTER_SANITIZE_SPECIAL_CHARS);
 
-// Converte a string de animais em um array, separando por vírgulas
-$animaisArray = $animais ? explode(',', $animais) : [];
-
-// Adiciona o novo animal ao array
-if ($animal) {
-    $animaisArray[] = $animal;
+if (empty($ultimo) && $ultimo_clicado != null) {
+    $ultimo = '<h3>Últimos clicados:</h3>';
+    $ultimo .= ucfirst($ultimo_clicado) . '<br>';
+    $ultimo_clicado = $animal;
+} else if (!empty($ultimo)) {
+    $ultimo .= ucfirst($ultimo_clicado) . '<br>';
+    $ultimo_clicado = $animal;
+} else {
+    $ultimo_clicado = $animal;
 }
-
-// Converte o array atualizado de volta para uma string para a URL
-$animaisString = implode(',', $animaisArray);
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -32,6 +33,10 @@ $animaisString = implode(',', $animaisArray);
             height: 200px;
             object-fit: inherit;
         }
+
+        .destaque {
+            border: 4px solid red;
+        }
     </style>
 </head>
 
@@ -39,44 +44,44 @@ $animaisString = implode(',', $animaisArray);
     <div class="container">
         <h1 class="mt-3">Praticando 3 - Animais</h1>
         <hr class="mb-4">
+
         <div class="imagens">
-            <a href="?animal=gato&animais=<?php echo $animaisString; ?>">
-                <img src="gato.jpg" alt="foto de gato">
+            <a href="?animal=gato&ultimo=<?= $ultimo ?>&ultimo_clicado=<?= $ultimo_clicado ?>">
+                <img src="gato.jpg" alt="foto de gato" class="<?= $animal == 'gato' ? 'destaque' : ''; ?>">
             </a>
-            <a href="?animal=cachorro&animais=<?php echo $animaisString; ?>">
-                <img src="cachorro.jpg" alt="foto de cachorro">
+            <a href="?animal=cachorro&ultimo=<?= $ultimo ?>&ultimo_clicado=<?= $ultimo_clicado ?>">
+                <img src="cachorro.jpg" alt="foto de cachorro" class="<?= $animal == 'cachorro' ? 'destaque' : ''; ?>">
             </a>
-            <a href="?animal=hamster&animais=<?php echo $animaisString; ?>">
-                <img src="hamster-dourado.jpg" alt="foto de hamster">
+            <a href="?animal=hamster&ultimo=<?= $ultimo ?>&ultimo_clicado=<?= $ultimo_clicado ?>">
+                <img src="hamster-dourado.jpg" alt="foto de hamster" class="<?= $animal == 'hamster' ? 'destaque' : ''; ?>">
             </a>
-            <a href="?animal=largatixa&animais=<?php echo $animaisString; ?>">
-                <img src="largatixa.jpg" alt="foto de largatixa">
+            <a href="?animal=lagartixa&ultimo=<?= $ultimo ?>&ultimo_clicado=<?= $ultimo_clicado ?>">
+                <img src="largatixa.jpg" alt="foto de lagartixa" class="<?= $animal == 'lagartixa' ? 'destaque' : ''; ?>">
             </a>
         </div>
+
         <div class="informacoes mt-4">
-            <?php if ($animal): ?>
-                <p>Você clicou no <b><?= ucfirst($animal) ?>.</b></p>
-                <?php if ($animal == 'gato'): ?>
-                    <p>O gato é um mamífero da família dos felídeos.</p>
-                <?php elseif ($animal == 'cachorro'): ?>
-                    <p>O cachorro é um mamífero domesticado da família dos canídeos.</p>
-                <?php elseif ($animal == 'hamster'): ?>
-                    <p>O hamster é um pequeno roedor muito comum como animal de estimação.</p>
-                <?php elseif ($animal == 'largatixa'): ?>
-                    <p>A largatixa é um pequeno réptil encontrado em diversas partes do mundo.</p>
-                <?php endif; ?>
-            <?php endif; ?>
+            <?php switch ($animal) {
+                case 'gato':
+                    echo "<p>Você clicou no <b>Gato</b>.</p><p>O gato é um mamífero da família dos felídeos.</p>";
+                    break;
+                case 'cachorro':
+                    echo "<p>Você clicou no <b>Cachorro</b>.</p><p>O cachorro é um mamífero domesticado da família dos canídeos.</p>";
+                    break;
+                case 'hamster':
+                    echo "<p>Você clicou no <b>Hamster</b>.</p><p>O hamster é um pequeno roedor muito comum como animal de estimação.</p>";
+                    break;
+                case 'lagartixa':
+                    echo "<p>Você clicou na <b>Lagartixa</b>.</p><p>A lagartixa é um pequeno réptil encontrado em diversas partes do mundo.</p>";
+                    break;
+            }
+            ?>
         </div>
+
         <div class="ultimos-clicados mt-4">
-            <?php if (count($animaisArray) > 1): ?>
-                <h3>Últimos clicados:</h3>
-                <?php foreach ($animaisArray as $a): ?>
-                    <span><?= ucfirst($a) ?></span><br>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <?= !empty($ultimo) ? html_entity_decode($ultimo) : ''; ?>
         </div>
         <a href="?">Limpar tudo</a>
     </div>
 </body>
-
 </html>
