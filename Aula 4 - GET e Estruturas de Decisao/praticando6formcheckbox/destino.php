@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,20 +17,27 @@
             <pre class="text-danger"><?php print_r($_POST); ?></pre>
         </div>
 
-        <h2>Interesses selecionados (em ordem alfabética)</h2>
         <div class="interesses">
             <?php
             if (isset($_POST['gostos']) && is_array($_POST['gostos'])) {
                 $gostos = $_POST['gostos'];
                 sort($gostos);
                 echo "<ul>";
+                $count = 0;
                 foreach ($gostos as $gosto) {
-                    echo "<li>" . htmlspecialchars($gosto) . "</li>";
+                    if ($count < 3) {
+                        echo "<li>" . htmlspecialchars($gosto) . "</li>";
+                    } elseif ($count == 3) {
+                        echo "<li>...</li>";
+                        break;
+                    }
+                    $count++;
                 }
                 echo "</ul>";
             } else {
                 echo "<p>Não tem nada aqui!</p>";
             }
+
             ?>
         </div>
 
