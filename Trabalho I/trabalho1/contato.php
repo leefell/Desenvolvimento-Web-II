@@ -1,7 +1,8 @@
 <?php
 session_start();
-require 'backend/functions.php';
-registrarAcesso(basename($_SERVER['PHP_SELF']));
+require_once 'AccessLogger.php';
+$logger = new AccessLogger();
+$logger->registrarAcesso('contato.php');
 ?>
 
 <!DOCTYPE html>

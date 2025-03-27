@@ -4,7 +4,7 @@
         <nav>
             <?php if (isset($_SESSION['authenticated'])): ?>
                 <ul class="nav">
-                    <li class="nav-item"><a href="home.php" class="nav-link text-white">Home</a></li>
+                    <li class="nav-item"><a href="index.php" class="nav-link text-white">Home</a></li>
                     <li class="nav-item"><a href="sobre.php" class="nav-link text-white">Sobre</a></li>
                     <li class="nav-item"><a href="contato.php" class="nav-link text-white">Contato</a></li>
                     <li class="nav-item"><a href="logs.php" class="nav-link text-danger">Logs de Acesso</a></li>
@@ -12,7 +12,7 @@
                 </ul>
             <?php else: ?>
                 <ul class="nav">
-                    <li class="nav-item"><a href="home.php" class="nav-link text-white">Home</a></li>
+                    <li class="nav-item"><a href="index.php" class="nav-link text-white">Home</a></li>
                     <li class="nav-item"><a href="sobre.php" class="nav-link text-white">Sobre</a></li>
                     <li class="nav-item"><a href="contato.php" class="nav-link text-white">Contato</a></li>
                     <li class="nav-item"><a href="logs.php" class="nav-link text-danger">Logs de Acesso</a></li>

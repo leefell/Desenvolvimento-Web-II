@@ -1,9 +1,8 @@
 <?php
 session_start();
+require_once 'AccessLogger.php';
+$logger = new AccessLogger();
 
-// ------------------------------------------------
-// 1) Autenticação por sessão
-// ------------------------------------------------
 $error = '';
 if (isset($_POST['accessKey'])) {
     $accessKey = $_POST['accessKey'];
@@ -12,6 +11,26 @@ if (isset($_POST['accessKey'])) {
     } else {
         $error = "Senha errada amigão!";
     }
+}
+
+// Processa as ações de limpeza de logs/acessos
+if (isset($_POST['clearAllLogs'])) {
+    $logger->clearAllLogs();
+    $_SESSION['mensagem'] = "Todos os logs foram apagados com sucesso!";
+}
+
+if (isset($_POST['clearPage'])) {
+    $page = $_POST['clearPage'];
+    $logger->clearAllAccess($page);
+    $_SESSION['mensagem'] = "Acessos da página {$page} foram limpos com sucesso!";
+}
+
+if (isset($_POST['clearAllAccess'])) {
+    $pages = ['index.php', 'sobre.php', 'contato.php'];
+    foreach ($pages as $page) {
+        $logger->clearAllAccess($page);
+    }
+    $_SESSION['mensagem'] = "Todos os acessos foram apagados com sucesso!";
 }
 
 // Se não estiver autenticado, mostra o formulário de acesso e encerra.
@@ -50,76 +69,16 @@ if (!isset($_SESSION['authenticated'])):
     <?php
     exit(); // Impede o restante do código de rodar se não estiver autenticado
 endif;
-?>
-
-<?php
-// ------------------------------------------------
-// 2) Se chegou aqui, está autenticado. carregando os logs.
-// ------------------------------------------------
-$arquivoLog = 'logs.txt';
-$logs = [];
-
-// Lê o arquivo de reset para saber a partir de que momento contar os acessos
-$lastResetFile = 'last_reset.txt';
-$lastReset = 0;  // se não existir, assume zero
-if (file_exists($lastResetFile)) {
-    $lastReset = (int) trim(file_get_contents($lastResetFile));
-}
-
-// Verifica se o arquivo de log existe
-if (file_exists($arquivoLog)) {
-    $linhas = file($arquivoLog, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($linhas as $linha) {
-        // Cada linha está no formato: pagina|dataHora|ip|navegador
-        $dados = explode('|', $linha);
-        if (count($dados) === 4) {
-            $pagina = trim($dados[0]);
-            $dataHora = trim($dados[1]);
-            $ip = trim($dados[2]);
-            $navegador = trim($dados[3]);
-
-            $logs[] = [
-                'pagina' => $pagina,
-                'dataHora' => $dataHora,
-                'ip' => $ip,
-                'navegador' => $navegador,
-            ];
-        }
-    }
-} else {
-    error_log("Arquivo de log não encontrado: $arquivoLog");
-}
 
 // ------------------------------------------------
-// 3) Calcular contadores APÓS o último reset
+// 2) Se chegou aqui, está autenticado. Carrega os logs e contadores.
 // ------------------------------------------------
-$acessos = [];  // contador por página
-foreach ($logs as $log) {
-    // Converte data/hora do log em timestamp
-    $logTimestamp = strtotime($log['dataHora']);
-    if ($logTimestamp === false) {
-        // Se não conseguir converter, consideramos antigo
-        continue;
-    }
 
-    // Se o log for posterior ao $lastReset, conta
-    if ($logTimestamp >= $lastReset) {
-        $pagina = $log['pagina'];
-        if (isset($acessos[$pagina])) {
-            $acessos[$pagina]++;
-        } else {
-            $acessos[$pagina] = 1;
-        }
-    }
-}
+$logs = $logger->getLogs();
+$acessos = $logger->getAcessosOrdenados(); // Retorna os acessos de cada página
+$totalAcessos = $logger->getTotalAcessos();
 
-// Ordenar as páginas pelo número de acessos (decrescente)
-arsort($acessos);
-
-// Total de acessos
-$totalAcessos = array_sum($acessos);
-
-// Mapeamento das páginas para exibição (label e ícone)
+// Mapeamento das páginas para aparecer aqueles icones bonitinhos
 $pages = [
     'index.php' => ['label' => 'Início', 'icon' => 'bi-file-text'],
     'contato.php' => ['label' => 'Contato', 'icon' => 'bi-telephone'],
@@ -149,9 +108,12 @@ $pages = [
                 <?php unset($_SESSION['mensagem']); ?>
             <?php endif; ?>
 
-            <!-- Cards com contadores dinâmicos -->
+            <!-- Cards com os contadores de acordo com o array, se um ta maior que a quantidade de acessos
+             é maior que o outro ele muda a posição do card -->
             <div class="row g-3 my-3 p-3 border border-danger rounded">
-                <?php foreach ($pages as $file => $info): ?>
+                <?php foreach ($acessos as $file => $count):
+                    $info = $pages[$file]; // para pegar label, ícone etc.
+                    ?>
                     <div class="col-md-4">
                         <div class="card text-center p-3">
                             <div class="card-body">
@@ -159,10 +121,10 @@ $pages = [
                                     <i class="bi <?= $info['icon'] ?>"></i> <?= $info['label'] ?>
                                 </h5>
                                 <p class="fw-bold">
-                                    <?= isset($acessos[$file]) ? $acessos[$file] : 0 ?> Acessos
+                                    <?= $count ?> Acessos
                                 </p>
                                 <!-- Form para limpar os acessos de uma página específica -->
-                                <form method="post" action="limpar_contadores.php"
+                                <form method="post" action=""
                                     onsubmit="return confirm('Deseja realmente limpar os acessos de <?= $info['label'] ?>?');">
                                     <input type="hidden" name="clearPage" value="<?= $file ?>">
                                     <button type="submit" class="btn btn-outline-primary">Limpar</button>
@@ -171,6 +133,7 @@ $pages = [
                         </div>
                     </div>
                 <?php endforeach; ?>
+
             </div>
 
             <!-- Total de acessos dinâmico -->
@@ -179,15 +142,15 @@ $pages = [
                 Total de Acessos: <span class="text-primary"><?= $totalAcessos ?></span>
             </h4>
 
-            <!-- Form para limpar todos os acessos (ZERA contadores, mas mantém logs) -->
-            <form method="post" action="limpar_contadores.php"
+            <!-- Form para limpar todos os acessos (zera os contadores, mas mantém os logs) -->
+            <form method="post" action=""
                 onsubmit="return confirm('Deseja realmente ZERAR todos os acessos (mas manter o histórico)?');">
-                <button type="submit" name="clearAll" class="btn btn-danger my-2">Limpar todos os acessos</button>
+                <button type="submit" name="clearAllAccess" class="btn btn-danger my-2">Limpar todos os acessos</button>
             </form>
 
             <hr>
 
-            <!-- Tabela com TODOS os logs (independente de reset) -->
+            <!-- Tabela com TODOS os logs -->
             <div class="container mt-1">
                 <h2 class="text-white">Logs de Acesso</h2>
                 <div class="table-responsive">
@@ -216,11 +179,12 @@ $pages = [
                 </div>
             </div>
 
-            <!-- Form para limpar todo o log (APAGA fisicamente o arquivo logs.txt) -->
-            <form method="post" action="limpar_logs.php"
+            <!-- Form para limpar todo o log (apaga o conteúdo de logs.txt) -->
+            <form method="post" action=""
                 onsubmit="return confirm('Deseja realmente APAGAR TODOS OS LOGS? Esta ação não poderá ser desfeita.');">
-                <button type="submit" name="clearLog" class="btn btn-danger">Limpar Log</button>
+                <button type="submit" name="clearAllLogs" class="btn btn-danger">Limpar Log</button>
             </form>
+
         </div>
     </div>
     <?php include 'components/footer.php'; ?>

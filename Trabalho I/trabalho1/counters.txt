@@ -1,0 +1,4 @@
+index.php=0
+sobre.php=0
+contato.php=0
+total=0
