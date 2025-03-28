@@ -101,13 +101,13 @@ $pages = [
     <div class="container mt-5">
         <div class="card p-4 bg-danger bg-opacity-25 border border-danger">
             <h2 class="text-white">Logs de Acesso</h2>
-
+    
             <!-- Mensagem de confirmação de ação (caso exista em $_SESSION) -->
             <?php if (isset($_SESSION['mensagem'])): ?>
                 <p class="alert alert-success"><?= $_SESSION['mensagem'] ?></p>
                 <?php unset($_SESSION['mensagem']); ?>
             <?php endif; ?>
-
+ 
             <!-- Cards com os contadores de acordo com o array, se um ta maior que a quantidade de acessos
              é maior que o outro ele muda a posição do card -->
             <div class="row g-3 my-3 p-3 border border-danger rounded">

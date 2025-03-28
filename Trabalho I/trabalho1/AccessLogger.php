@@ -30,6 +30,7 @@ class AccessLogger
      */
     public function registrarAcesso($pagina)
     {
+        date_default_timezone_set('America/Sao_Paulo');
         $dataHora = date('Y-m-d H:i:s');
         $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
         $navegador = $this->getBrowser();
@@ -77,8 +78,7 @@ class AccessLogger
         $counters = $this->getCounters();
         // Remove a chave 'total' para não misturar no array de páginas
         unset($counters['total']);
-
-        // Agora, ordena do maior para o menor valor
+        // Ordena os contadores por valor (acessos) em ordem decrescente
         arsort($counters);
 
         return $counters;
@@ -143,7 +143,6 @@ class AccessLogger
         ];
 
         foreach ($linhas as $linha) {
-            // Exemplo de linha: "sobre.php=3"
             $parts = explode('=', $linha);
             if (count($parts) === 2) {
                 $chave = trim($parts[0]);

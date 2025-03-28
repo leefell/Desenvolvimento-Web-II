@@ -34,7 +34,7 @@ $logger->registrarAcesso('sobre.php');
                     um jogasso.</p> <br>
                 <p class="text-white mb-0">Eu dirijo bem também. E não faço idéia de como vou subir isso aqui na AWS e
                     fazer o contator
-                    de acessos D:</p> <br>
+                    de acessos D: (mas se ta la eventualmente eu descobri)</p> <br>
             </div>
         </figure>
 
