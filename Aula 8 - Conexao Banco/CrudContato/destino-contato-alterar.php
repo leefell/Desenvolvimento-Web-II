@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
 
-require 'header.php'
+require 'header.php';
 ?>
 
 <div class="inicio">
@@ -14,7 +14,7 @@ require 'header.php'
         $id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_NUMBER_INT);
         $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
-        $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_NUMBER_INT);
+        $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_SPECIAL_CHARS);
 
         echo "<p>ID: $id</p>";
         echo "<p>Nome informado: $nome</p>";
@@ -34,18 +34,18 @@ require 'header.php'
         }
 
         if ($result == true) {
-        ?>
+            ?>
             <div class="alert alert-success" role="alert">
                 <h4>Dados alterados com sucesso!</h4>
             </div>
-        <?php
+            <?php
         } else {
-        ?>
+            ?>
             <div class="alert alert-danger" role="alert">
                 <h4>Falha ao efetuar gravação.</h4>
                 <p><?php echo $error; ?></p>
             </div>
-        <?php
+            <?php
         }
         ?>
 
@@ -54,5 +54,5 @@ require 'header.php'
 </div>
 
 <?php
-require 'footer.php'
+require 'footer.php';
 ?>

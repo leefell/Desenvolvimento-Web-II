@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
 
-require 'header.php'
+require 'header.php';
 ?>
 
 <div class="inicio">
@@ -11,9 +11,9 @@ require 'header.php'
 
     <div class="row">
         <?php
-        $nome = filter_input(INPUT_GET, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
-        $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_EMAIL);
-        $msg = filter_input(INPUT_GET, "msg", FILTER_SANITIZE_SPECIAL_CHARS);
+        $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+        $msg = filter_input(INPUT_POST, "msg", FILTER_SANITIZE_SPECIAL_CHARS);
 
         echo "<p>Nome informado: $nome</p>";
         echo "<p>Email: $email</p>";
@@ -22,29 +22,30 @@ require 'header.php'
 
         require "conexao.php";
 
-        $sql = "insert into contato (nome, email) values (?, ?, ?)";
+        $sql = "insert into contato (nome, email, mensagem) values (?, ?, ?)";
+
 
         try {
             $stmt = $conn->prepare($sql);
-            $result = $stmt->execute([$nome, $email, $senha]);
+            $result = $stmt->execute([$nome, $email, $msg]);
         } catch (Exception $e) {
             $result = false;
             $error = $e->getMessage();
         }
 
-        if ($result !== true) {
-        ?>
+        if ($result === true) {
+            ?>
             <div class="alert alert-success" role="alert">
                 <h4>Dados gravados com sucesso!</h4>
             </div>
-        <?php
+            <?php
         } else {
-        ?>
+            ?>
             <div class="alert alert-danger" role="alert">
                 <h4>Falha ao efetuar gravação.</h4>
                 <p><?php echo $error; ?></p>
-            </div>            
-        <?php
+            </div>
+            <?php
         }
         ?>
 
@@ -54,4 +55,4 @@ require 'header.php'
 
 <?php
 require 'footer.php'
-?>
+    ?>

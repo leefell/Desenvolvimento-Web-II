@@ -1,6 +1,7 @@
 <?php
-require 'eader.php'
+require 'header.php';
 ?>
+
 <div class="inicio">
     <div class="bg-light p-4 mb-4 rounded">
         <h1 class="text-center">Página para excluir contato</h1>
@@ -11,7 +12,7 @@ require 'eader.php'
 
         require "conexao.php";
 
-        $sql = "delete from contato where 1D = ?";
+        $sql = "delete from contato where ID = ?";
 
         try {
             $stmt = $conn->prepare($sql);
@@ -22,24 +23,24 @@ require 'eader.php'
         }
 
         if ($result == true) {
-        ?>
+            ?>
             <div class="alert alert-success" role="alert">
                 <h4>Registro apagado com sucesso!</h4>
             </div>
-        <?php
+            <?php
         } else {
-        ?>
+            ?>
             <div class="alert alert-danger" role="alert">
                 <h4>Falha ao efetuar exclusão.</h4>
                 <p><?php echo $error; ?></p>
             </div>
-        <?php
+            <?php
         }
         ?>
     </div>
-    <a href="listage.php" class="btn btn-info ms-5" role="button">Voltar</a>
+    <a href="listagem.php" class="btn btn-info ms-5" role="button">Voltar</a>
 </div>
 
 <?php
-require 'footer.php'
+require 'footer.php';
 ?>

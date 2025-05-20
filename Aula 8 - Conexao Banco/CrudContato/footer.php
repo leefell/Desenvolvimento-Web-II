@@ -5,7 +5,7 @@
                         <use xlink:href="#bootstrap"></use>
                     </svg>
                 </a>
-                <span class="text-muted">© 2025 Eder Pansani</span>
+                <span class="text-muted">© 2025 Alexandre Augusto</span>
             </div>
 
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">

@@ -2,9 +2,9 @@
 $conf = parse_ini_file("config.ini");
 
 $string_connection = $conf["driver"] .
-        ":dbname=" . $conf["database"] .
-          ";host=" . $conf["server"] .
-          ";port=" . $conf["port"];
+    ":dbname=" . $conf["database"] .
+    ";host=" . $conf["server"] .
+    ";port=" . $conf["port"];
 
 try {
     $conn = new PDO(
@@ -20,3 +20,4 @@ try {
     echo "<p>Erro ao se conectar no banco de dados. </p>";
     echo $e->getMessage();
 }
+?>
