@@ -31,7 +31,7 @@ $registroContato = $stmt->fetch();
 
     <div class="row">
         <div class="col-8 offset-2">
-            <form class="row g-3" action="destino-contato.php" method="POST">
+            <form class="row g-3" action="destino-contato-alterar.php" method="POST">
                 <input type="hidden" name="id" value="<?= $id ?>">
                 <div class="col-6">
                     <div class="mb-2">

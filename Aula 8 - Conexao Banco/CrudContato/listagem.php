@@ -53,7 +53,7 @@ require 'header.php';
                                 </a>
                             </td>
                             <td>
-                                <a class="btn btn-sm btn-danger" href="excluir-contato.php?id=<?php $row['id']; ?>"
+                                <a class="btn btn-sm btn-danger" href="excluir-contato.php?id=<?= $row['id']; ?>"
                                     onclick="if(!confirm('Tem certeza que deseja excluir?')) return false;">
                                     <span data-feather="trash-2"></span>
                                     Excluir
